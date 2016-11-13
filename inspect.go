@@ -18,11 +18,6 @@ func main() {
 	go bot.Listen(messages, 1*time.Second)
 
 	for {
-		// select {
-		// case c := <-messages:
-		// 	log.Println("Message was:", c.Text)
-		// default:
-		// }
 		c := <-messages
 		log.Println("Message was:", c.Text)
 	}
