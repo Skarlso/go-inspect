@@ -1,2 +1,3 @@
-# go-inspect
-A utility which gives you a source file from Go to inspect every day.
+# Go Inspect
+
+A Telegram bot which periodically sends a Go file to inspect.
