@@ -1,14 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/tucnak/telebot"
 )
 
 func main() {
+	filepath.Walk(".", walkFun)
+}
+
+func walkFun(path string, info os.FileInfo, err error) error {
+	if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
+		fmt.Println(path)
+		return nil
+	}
+	return nil
+}
+
+func sendMessage() {
 	bot, err := telebot.NewBot(os.Getenv("BOT_TOKEN"))
 	if err != nil {
 		log.Fatalln(err)
