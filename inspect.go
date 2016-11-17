@@ -19,6 +19,11 @@ func init() {
 }
 
 func main() {
+	pathToWalk := os.Getenv("GO_INSPECT_PATH")
+	if pathToWalk == "" {
+		fmt.Println("Please set GO_INSPECT_PATH to the downloaded Go directory")
+		os.Exit(1)
+	}
 	filepath.Walk("/Users/hannibal/golang/src/github.com/go", walkFun)
 }
 
