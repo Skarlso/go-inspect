@@ -11,16 +11,36 @@ import (
 	"github.com/tucnak/telebot"
 )
 
+var ignoredFolders []string
+
+func init() {
+	ignoredFolders = LoadIgnoredFolders().Folders
+	fmt.Println("Ignored folders:", ignoredFolders)
+}
+
 func main() {
-	filepath.Walk(".", walkFun)
+	filepath.Walk("/Users/hannibal/golang/src/github.com/go", walkFun)
 }
 
 func walkFun(path string, info os.FileInfo, err error) error {
-	if !info.IsDir() && strings.HasSuffix(info.Name(), ".go") {
-		fmt.Println(path)
+	if info.IsDir() || !strings.HasSuffix(path, ".go") {
 		return nil
 	}
+	if isIgnoredFolder(path) {
+		return nil
+	}
+
+	fmt.Println(path)
 	return nil
+}
+
+func isIgnoredFolder(path string) bool {
+	for _, f := range ignoredFolders {
+		if strings.Contains(path, f) {
+			return true
+		}
+	}
+	return false
 }
 
 func sendMessage() {
