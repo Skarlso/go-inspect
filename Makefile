@@ -3,6 +3,9 @@ BINARY=inspect
 build:
 	go build -o ${BINARY} 
 
+test:
+	go test -v ./...
+
 install:
 	go install
 

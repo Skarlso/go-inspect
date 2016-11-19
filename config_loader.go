@@ -11,11 +11,12 @@ import (
 
 var configPath string
 
+// IgnoredFolders is a struct to collect ignored folders.
 type IgnoredFolders struct {
 	Folders []string `json:"folders"`
 }
 
-// Path retrieves the main configuration path.
+// ConfigPath retrieves the main configuration path.
 func ConfigPath() string {
 	// Get configuration path
 	usr, err := user.Current()
@@ -30,7 +31,7 @@ func init() {
 	configPath = ConfigPath()
 }
 
-// LoadEC2Config Loads the EC2 configuration file into the representive struct.
+// LoadIgnoredFolders Loads the configuration file into the representive struct.
 func LoadIgnoredFolders() (ignoredFolders *IgnoredFolders) {
 	dat, err := ioutil.ReadFile(filepath.Join(configPath, "ignored_folders.json"))
 	if err != nil {
