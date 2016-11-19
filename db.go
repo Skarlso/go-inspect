@@ -11,19 +11,12 @@ import (
 // BUCKET is the main Bucket name for boltdb.
 const BUCKET = "inspect"
 
-// Shared DB connection which doesn't need to be updated if it exists.
-var dbConn *bolt.DB
-
 func createDbConnection() *bolt.DB {
-	if dbConn != nil {
-		return dbConn
-	}
 	db, err := bolt.Open(filepath.Join(ConfigPath(), "go_inspect.db"), 0600, nil)
 	if err != nil {
 		log.Println("Error while opening database: ", err)
 		os.Exit(1)
 	}
-	dbConn = db
 	return db
 }
 
@@ -50,12 +43,18 @@ func InitDb() {
 	log.Println("Database created.")
 }
 
-// SaveFile saves a file in db.
-func SaveFile(file string) error {
+// SaveFiles saves a file in db.
+func SaveFiles(files []string) error {
 	db := createDbConnection()
 	err := db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket([]byte(BUCKET))
-		return b.Put([]byte(file), []byte("true"))
+		for _, f := range files {
+			err := b.Put([]byte(f), []byte("false"))
+			if err != nil {
+				return err
+			}
+		}
+		return nil
 	})
 	return err
 }

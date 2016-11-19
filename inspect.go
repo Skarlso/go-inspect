@@ -20,7 +20,10 @@ func init() {
 }
 
 func main() {
+	fillDbWithFiles()
 }
+
+var files []string
 
 func fillDbWithFiles() {
 	pathToWalk := os.Getenv("GO_INSPECT_PATH")
@@ -30,7 +33,12 @@ func fillDbWithFiles() {
 	}
 	err := filepath.Walk("/Users/hannibal/golang/src/github.com/go", walkFun)
 	if err != nil {
-		log.Println("Error while walking Go source")
+		log.Println("Error while walking Go source: ", err)
+		os.Exit(1)
+	}
+	err = SaveFiles(files)
+	if err != nil {
+		log.Println("Error while saving files: ", err)
 		os.Exit(1)
 	}
 }
@@ -43,7 +51,8 @@ func walkFun(path string, info os.FileInfo, err error) error {
 		return nil
 	}
 
-	return SaveFile(path)
+	files = append(files, path)
+	return nil
 }
 
 func isIgnoredFolder(path string) bool {
