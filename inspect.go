@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -14,14 +13,16 @@ import (
 var ignoredFolders []string
 
 func init() {
+	log.Println("Creating Database...")
+	InitDb()
 	ignoredFolders = LoadIgnoredFolders().Folders
-	fmt.Println("Ignored folders:", ignoredFolders)
+	log.Println("Ignored folders:", ignoredFolders)
 }
 
 func main() {
 	pathToWalk := os.Getenv("GO_INSPECT_PATH")
 	if pathToWalk == "" {
-		fmt.Println("Please set GO_INSPECT_PATH to the downloaded Go directory")
+		log.Println("Please set GO_INSPECT_PATH to the downloaded Go directory")
 		os.Exit(1)
 	}
 	filepath.Walk("/Users/hannibal/golang/src/github.com/go", walkFun)
@@ -35,7 +36,7 @@ func walkFun(path string, info os.FileInfo, err error) error {
 		return nil
 	}
 
-	fmt.Println(path)
+	//log.Println(path)
 	return nil
 }
 
