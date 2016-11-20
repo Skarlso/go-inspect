@@ -28,7 +28,7 @@ var files []string
 func fillDbWithFiles() {
 	pathToWalk := os.Getenv("GO_INSPECT_PATH")
 	if pathToWalk == "" {
-		log.Println("Please set GO_INSPECT_PATH to the downloaded Go directory")
+		log.Println("Please set GO_INSPECT_PATH to the downloaded Go directory.")
 		os.Exit(1)
 	}
 	err := filepath.Walk("/Users/hannibal/golang/src/github.com/go", walkFun)
