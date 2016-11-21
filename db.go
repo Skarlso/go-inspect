@@ -37,7 +37,7 @@ func InitDb() {
 		return nil
 	})
 	if err != nil {
-		log.Println("Error while trying to create Bucket: ", err)
+		log.Println("Error while creating the bucket: ", err)
 		os.Exit(1)
 	}
 	log.Println("Database created.")
