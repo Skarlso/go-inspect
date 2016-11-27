@@ -6,7 +6,7 @@ A Telegram bot which periodically sends a Go file to inspect.
 
 Have a file under `~/.config/go-inspect` called `ignored_folders.json`. 
 
-It should look something like this:
+It should look like this:
 
 ```json
 {"folders": ["fixedbugs","vendor"]}
