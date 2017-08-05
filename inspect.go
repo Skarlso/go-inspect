@@ -31,7 +31,7 @@ func fillDbWithFiles() {
 		log.Println("Please set GO_INSPECT_PATH to the downloaded Go directory.")
 		os.Exit(1)
 	}
-	err := filepath.Walk("/Users/hannibal/golang/src/github.com/go", walkFun)
+	err := filepath.Walk("/Users/user/golang/src/github.com/go", walkFun)
 	if err != nil {
 		log.Println("Error while walking Go source: ", err)
 		os.Exit(1)
